@@ -1012,21 +1012,38 @@ strong { color: var(--text); }
 /* Animated border gradient on hover */
 .card-border-glow {
     position: absolute;
-    inset: -1px;
+    inset: 0;
     border-radius: 20px;
-    background: conic-gradient(from 0deg, transparent, var(--red), transparent, transparent);
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
     opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
-    animation: borderSpin 4s linear infinite;
+    transition: opacity 0.4s ease;
+}
+
+.card-border-glow::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 30px;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: rotate(25deg);
+    animation: none;
 }
 
 .project-card:hover .card-border-glow {
-    opacity: 0.5;
+    opacity: 1;
 }
 
-@keyframes borderSpin {
-    100% { transform: rotate(360deg); }
+.project-card:hover .card-border-glow::before {
+    animation: cardShineSlide 1.8s ease-in-out infinite;
+}
+
+@keyframes cardShineSlide {
+    0% { left: -50%; }
+    100% { left: 150%; }
 }
 
 /* Background glow that follows hover */
@@ -2576,7 +2593,8 @@ footer {
     .hero-cta { justify-content: center; flex-wrap: wrap; }
     .hero-socials { justify-content: center; }
     .hero-right { width: 100%; }
-    .spline-container { height: 320px; }
+    .spline-container { display: none; }
+    .hero-right { display: none; }
 
     /* About */
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -2642,7 +2660,8 @@ footer {
     .hero { padding-left: 16px; padding-right: 16px; }
     .section-inner { padding: 0 16px; }
     .btn-red, .btn-ghost { padding: 11px 20px; font-size: 0.9rem; }
-    .spline-container { height: 260px; }
+    .spline-container { display: none; }
+    .hero-right { display: none; }
     .dev-illustration-wrap { max-width: 260px; }
     .badge-1, .badge-2, .badge-3 { display: none; }
     .tech-logo-card { width: 72px; height: 72px; gap: 8px; border-radius: 12px; }
@@ -3723,39 +3742,6 @@ body {
 }
 
 
-/* ====================================================
-   PROJECT CARD SHINE EFFECT ON HOVER
-   ==================================================== */
-.project-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 40%,
-        rgba(244, 63, 94, 0.03) 45%,
-        rgba(244, 63, 94, 0.06) 50%,
-        rgba(244, 63, 94, 0.03) 55%,
-        transparent 60%
-    );
-    transform: rotate(0deg);
-    transition: none;
-    animation: none;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.project-card:hover::after {
-    animation: cardShine 1.5s ease forwards;
-}
-
-@keyframes cardShine {
-    0% { transform: translateX(-100%) rotate(25deg); }
-    100% { transform: translateX(100%) rotate(25deg); }
-}
 
 
 /* ====================================================

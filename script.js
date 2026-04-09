@@ -790,61 +790,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 
 
 // ====================================================
-// FUN FACTS COUNTER ANIMATION
-// ====================================================
-(function() {
-    const funNums = document.querySelectorAll('.fun-fact-num');
-    if (!funNums.length) return;
-
-    const funObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const target = parseInt(el.dataset.target);
-                let current = 0;
-                const duration = 2000;
-                const step = Math.max(1, Math.floor(target / (duration / 16)));
-                const interval = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(interval);
-                    }
-                    el.textContent = current.toLocaleString();
-                }, 16);
-                funObserver.unobserve(el);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    funNums.forEach(el => funObserver.observe(el));
-})();
-
-
-// ====================================================
-// TIMELINE LINE GROW ANIMATION
-// ====================================================
-(function() {
-    const timelineLine = document.querySelector('.timeline-line');
-    if (!timelineLine) return;
-
-    timelineLine.style.height = '0';
-    timelineLine.style.transition = 'height 1.5s cubic-bezier(0.23, 1, 0.32, 1)';
-
-    const tlObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                timelineLine.style.height = '100%';
-                tlObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    tlObserver.observe(timelineLine.parentElement);
-})();
-
-
-// ====================================================
 // SERVICE CARDS — TILT ON HOVER
 // ====================================================
 (function() {
@@ -863,19 +808,18 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 
 
 // ====================================================
-// PROJECT CARDS — STAGGER REVEAL ON SCROLL
+// PROJECT CARDS — REVEAL ON SCROLL
 // ====================================================
 (function() {
     const cards = document.querySelectorAll('.project-card');
     const cardObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, idx) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.transitionDelay = (idx * 0.15) + 's';
                 entry.target.classList.add('card-visible');
                 cardObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
     cards.forEach(c => cardObserver.observe(c));
 })();
 
@@ -910,4 +854,35 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
         line.style.animationDuration = (12 + Math.random() * 8) + 's';
         projectSection.appendChild(line);
     }
+})();
+
+
+// ====================================================
+// ANTI-INSPECT PROTECTION
+// ====================================================
+(function() {
+    // Disable right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Disable common dev tools shortcuts
+    document.addEventListener('keydown', e => {
+        // F12
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+        // Ctrl+Shift+I / Cmd+Option+I
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') { e.preventDefault(); return false; }
+        // Ctrl+Shift+J / Cmd+Option+J
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') { e.preventDefault(); return false; }
+        // Ctrl+Shift+C / Cmd+Option+C
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') { e.preventDefault(); return false; }
+        // Ctrl+U / Cmd+U (view source)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'u') { e.preventDefault(); return false; }
+        // Ctrl+S / Cmd+S (save page)
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); return false; }
+    });
+
+    // Disable text selection
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable drag
+    document.addEventListener('dragstart', e => e.preventDefault());
 })();
