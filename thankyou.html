@@ -3,325 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You - Walid Portfolio</title>
+    <title>Thank You - Walid Chyboub</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            background: #06060e;
+            color: #fff;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
             padding: 20px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .bg-animation {
+        /* Animated grid background */
+        .ty-grid-bg {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.1;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(244, 63, 94, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(244, 63, 94, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
         }
 
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--red) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        .bg-animation::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--red-dark) 0%, transparent 70%);
-            animation: rotate 30s linear infinite reverse;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Floating Particles */
-        .particles {
+        /* Glow orbs */
+        .ty-orb {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--red);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: float 20s infinite;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .thank-you-container {
-            max-width: 600px;
+        .ty-orb-1 {
+            width: 400px; height: 400px;
+            background: var(--red);
+            top: -100px; left: -100px;
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .ty-orb-2 {
+            width: 300px; height: 300px;
+            background: #7c3aed;
+            bottom: -80px; right: -80px;
+            animation: orbFloat 15s ease-in-out infinite 3s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -20px); }
+        }
+
+        /* Big background text */
+        .ty-bg-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.015);
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            letter-spacing: -6px;
+        }
+
+        /* Main container */
+        .ty-container {
+            position: relative;
+            z-index: 2;
+            max-width: 640px;
+            width: 100%;
             text-align: center;
-            padding: 60px 40px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 1s ease;
+            animation: containerIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes containerIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Card */
+        .ty-card {
+            background: linear-gradient(165deg, rgba(15, 12, 20, 0.92), rgba(8, 6, 14, 0.97));
+            border: 1px solid rgba(244, 63, 94, 0.08);
+            border-radius: 28px;
+            padding: 56px 48px;
             position: relative;
             overflow: hidden;
-            width: 100%;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
 
-        .thank-you-container::before {
+        /* Top glow line */
+        .ty-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.1), transparent);
-            animation: shine 3s ease-in-out infinite;
+            top: -1px;
+            left: 20%; right: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.6;
         }
 
-        @keyframes shine {
-            0% {
-                left: -100%;
-            }
-            50% {
-                left: 100%;
-            }
-            100% {
-                left: 100%;
-            }
+        /* Success icon */
+        .ty-icon-wrap {
+            position: relative;
+            width: 90px; height: 90px;
+            margin: 0 auto 32px;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .ty-icon-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            animation: ringExpand 2s ease-in-out infinite;
         }
 
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--red), var(--red-dark));
+        .ty-icon-ring-2 {
+            animation-delay: 1s;
+        }
+
+        @keyframes ringExpand {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .ty-icon {
+            width: 90px; height: 90px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+            border: 1px solid rgba(34, 197, 94, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
-            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 2;
+            animation: iconIn 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 20px rgba(244, 63, 94, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
-            }
+        @keyframes iconIn {
+            from { opacity: 0; transform: scale(0.5); }
+            60% { transform: scale(1.1); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .success-icon i {
-            font-size: 36px;
-            color: white;
+        .ty-icon i {
+            font-size: 2.2rem;
+            color: #22c55e;
         }
 
-        .thank-you-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--red) 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGlow 3s ease-in-out infinite;
-            font-family: 'Outfit', sans-serif;
+        /* Checkmark animation */
+        .ty-check-svg {
+            width: 42px; height: 42px;
         }
 
-        @keyframes titleGlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 20px rgba(244, 63, 94, 0.5));
-            }
+        .ty-check-path {
+            stroke: #22c55e;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.6s 0.8s ease forwards;
         }
 
-        .thank-you-message {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            line-height: 1.8;
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
         }
 
-        .ty-btn {
-            padding: 15px 35px;
-            border: none;
+        /* Status badge */
+        .ty-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.15);
             border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #22c55e;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            animation: fadeUp 0.6s 0.5s ease both;
+        }
+
+        .ty-status-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Title */
+        .ty-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            animation: fadeUp 0.7s 0.6s ease both;
+        }
+
+        .ty-title-gradient {
+            background: linear-gradient(135deg, #fff, var(--red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Message */
+        .ty-message {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 440px;
+            margin: 0 auto 36px;
+            animation: fadeUp 0.7s 0.7s ease both;
+        }
+
+        /* Info cards row */
+        .ty-info-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 36px;
+            animation: fadeUp 0.7s 0.8s ease both;
+        }
+
+        .ty-info-card {
+            flex: 1;
+            padding: 16px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .ty-info-card:hover {
+            border-color: rgba(244, 63, 94, 0.15);
+        }
+
+        .ty-info-icon {
+            font-size: 1.2rem;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+
+        .ty-info-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .ty-info-value {
+            font-size: 0.88rem;
             font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            color: #ccc;
+        }
+
+        /* CTA Button */
+        .ty-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 14px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 6px 25px rgba(244, 63, 94, 0.3);
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--red), var(--red-dark));
-            color: white;
-            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
-            margin: 0 auto;
+            animation: fadeUp 0.7s 0.9s ease both;
         }
 
         .ty-btn::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .ty-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
+        .ty-btn:hover::before { opacity: 1; }
 
         .ty-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(244, 63, 94, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(244, 63, 94, 0.5), 0 0 20px rgba(244, 63, 94, 0.2);
         }
 
-        .countdown {
-            margin-top: 30px;
-            font-size: 14px;
-            color: var(--text-muted);
-            opacity: 0.8;
+        /* Countdown */
+        .ty-countdown {
+            margin-top: 28px;
+            font-size: 0.78rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            animation: fadeUp 0.7s 1s ease both;
         }
 
-        @media (max-width: 768px) {
-            .thank-you-container {
-                margin: 20px;
-                padding: 40px 30px;
-            }
+        .ty-countdown-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px; height: 28px;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            border-radius: 8px;
+            font-weight: 800;
+            color: var(--red);
+            font-size: 0.82rem;
+        }
 
-            .thank-you-title {
-                font-size: 2rem;
-            }
+        /* Floating particles */
+        .ty-particle {
+            position: fixed;
+            border-radius: 50%;
+            background: var(--red);
+            opacity: 0.12;
+            z-index: 0;
+        }
 
-            .success-icon {
-                width: 60px;
-                height: 60px;
-            }
+        .ty-pt1 { width: 4px; height: 4px; top: 20%; left: 15%; animation: loadFloat 9s ease-in-out infinite; }
+        .ty-pt2 { width: 5px; height: 5px; top: 60%; right: 10%; animation: loadFloat 11s ease-in-out infinite 2s; }
+        .ty-pt3 { width: 3px; height: 3px; bottom: 25%; left: 75%; animation: loadFloat 8s ease-in-out infinite 4s; }
 
-            .success-icon i {
-                font-size: 28px;
-            }
+        @keyframes loadFloat {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.12; }
+            50% { transform: translateY(-25px) translateX(10px); opacity: 0.25; }
+        }
+
+        @media (max-width: 640px) {
+            .ty-card { padding: 40px 24px; border-radius: 20px; }
+            .ty-info-row { flex-direction: column; }
+            .ty-icon-wrap { width: 72px; height: 72px; }
+            .ty-icon { width: 72px; height: 72px; }
+            .ty-icon i { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation"></div>
-    
-    <!-- Floating Particles -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
+    <!-- Background elements -->
+    <div class="ty-grid-bg"></div>
+    <div class="ty-orb ty-orb-1"></div>
+    <div class="ty-orb ty-orb-2"></div>
+    <div class="ty-bg-text">THANK YOU</div>
+    <div class="ty-particle ty-pt1"></div>
+    <div class="ty-particle ty-pt2"></div>
+    <div class="ty-particle ty-pt3"></div>
 
-    <div class="thank-you-container">
-        <div class="success-icon">
-            <i class="fas fa-check"></i>
-        </div>
-        
-        <h1 class="thank-you-title">Thank You!</h1>
-        
-        <p class="thank-you-message">
-            Your message has been sent successfully! I appreciate you reaching out and will get back to you as soon as possible. 
-            <br><br>
-            I typically respond within 24 hours during business days.
-        </p>
-        
-        <a href="index.html" class="ty-btn">
-            <span class="material-icons">home</span>
-            Back to Portfolio
-        </a>
-        
-        <div class="countdown">
-            <p>Redirecting to portfolio in <span id="countdown">10</span> seconds...</p>
+    <div class="ty-container">
+        <div class="ty-card">
+            <!-- Success icon -->
+            <div class="ty-icon-wrap">
+                <div class="ty-icon-ring"></div>
+                <div class="ty-icon-ring ty-icon-ring-2"></div>
+                <div class="ty-icon">
+                    <svg class="ty-check-svg" viewBox="0 0 24 24">
+                        <path class="ty-check-path" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="ty-status">
+                <span class="ty-status-dot"></span> Message Delivered
+            </div>
+
+            <!-- Title -->
+            <h1 class="ty-title">
+                <span class="ty-title-gradient">Thank You!</span>
+            </h1>
+
+            <!-- Message -->
+            <p class="ty-message">
+                Your message has been sent successfully. I appreciate you reaching out and will get back to you as soon as possible.
+            </p>
+
+            <!-- Info cards -->
+            <div class="ty-info-row">
+                <div class="ty-info-card">
+                    <div class="ty-info-icon"><i class="fas fa-clock"></i></div>
+                    <div class="ty-info-label">Response Time</div>
+                    <div class="ty-info-value">Within 24h</div>
+                </div>
+                <div class="ty-info-card">
+                    <div class="ty-info-icon"><i class="fas fa-envelope-circle-check"></i></div>
+                    <div class="ty-info-label">Status</div>
+                    <div class="ty-info-value">Received</div>
+                </div>
+                <div class="ty-info-card">
+                    <div class="ty-info-icon"><i class="fas fa-circle-check"></i></div>
+                    <div class="ty-info-label">Confirmation</div>
+                    <div class="ty-info-value">Sent</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <a href="index.html" class="ty-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+
+            <!-- Countdown -->
+            <div class="ty-countdown">
+                Redirecting in <span class="ty-countdown-num" id="countdown">10</span> seconds
+            </div>
         </div>
     </div>
 
     <script>
-        // Auto redirect countdown
         let timeLeft = 10;
-        const countdownElement = document.getElementById('countdown');
-        
-        const countdown = setInterval(() => {
+        const countdownEl = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
             timeLeft--;
-            countdownElement.textContent = timeLeft;
-            
+            if (countdownEl) countdownEl.textContent = timeLeft;
             if (timeLeft <= 0) {
-                clearInterval(countdown);
+                clearInterval(timer);
                 window.location.href = 'index.html';
             }
         }, 1000);
