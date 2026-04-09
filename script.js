@@ -790,6 +790,79 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 
 
 // ====================================================
+// FUN FACTS COUNTER ANIMATION
+// ====================================================
+(function() {
+    const funNums = document.querySelectorAll('.fun-fact-num');
+    if (!funNums.length) return;
+
+    const funObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.target);
+                let current = 0;
+                const duration = 2000;
+                const step = Math.max(1, Math.floor(target / (duration / 16)));
+                const interval = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(interval);
+                    }
+                    el.textContent = current.toLocaleString();
+                }, 16);
+                funObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    funNums.forEach(el => funObserver.observe(el));
+})();
+
+
+// ====================================================
+// TIMELINE LINE GROW ANIMATION
+// ====================================================
+(function() {
+    const timelineLine = document.querySelector('.timeline-line');
+    if (!timelineLine) return;
+
+    timelineLine.style.height = '0';
+    timelineLine.style.transition = 'height 1.5s cubic-bezier(0.23, 1, 0.32, 1)';
+
+    const tlObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                timelineLine.style.height = '100%';
+                tlObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    tlObserver.observe(timelineLine.parentElement);
+})();
+
+
+// ====================================================
+// SERVICE CARDS — TILT ON HOVER
+// ====================================================
+(function() {
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `translateY(-8px) perspective(600px) rotateX(${y * -5}deg) rotateY(${x * 5}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+})();
+
+
+// ====================================================
 // PROJECT CARDS — STAGGER REVEAL ON SCROLL
 // ====================================================
 (function() {
