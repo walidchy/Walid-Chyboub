@@ -4621,3 +4621,66 @@ body {
 .tech-logo-card:hover .tech-logo { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--icon-color)); }
 @media (max-width: 768px) { .tech-logo-card .tech-logo { width: 1.8rem; height: 1.8rem; } }
 @media (max-width: 480px) { .tech-logo-card .tech-logo { width: 1.5rem; height: 1.5rem; } }
+
+/* Phone layout: keep content readable and contained without page-level clipping. */
+@media (max-width: 768px) {
+    .nav-container { padding-inline: 18px; }
+    .nav-pill {
+        top: 64px; right: 0; left: 0; width: 100%; height: auto;
+        max-height: calc(100dvh - 64px); padding: 12px 18px 22px;
+        border-left: 0; border-bottom: 1px solid var(--border);
+        transform: translateY(-8px); opacity: 0; pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease, visibility .2s;
+    }
+    .nav-pill.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .nav-link { justify-content: flex-start; padding: 12px 16px; }
+    .hero { padding: 106px 20px 56px; }
+    .hero-label { justify-content: center; font-size: .7rem; line-height: 1.5; letter-spacing: .12em; }
+    .hero-label-dot { flex: 0 0 8px; }
+    .hero-big-title { font-size: clamp(2rem, 8vw, 3.4rem); overflow-wrap: normal; }
+    .hero-desc { font-size: 1rem; line-height: 1.7; }
+    .skill-pills { gap: 8px; margin-bottom: 24px; }
+    .pill { padding: 6px 12px; font-size: .8rem; }
+    .hero-cta { gap: 10px; margin-bottom: 24px; }
+    .hero-cta a { min-height: 46px; }
+    .hero-socials { margin-bottom: 20px; }
+    .section { padding: 56px 20px; scroll-margin-top: 64px; }
+    .section-title { font-size: clamp(1.8rem, 7vw, 2.5rem); margin-bottom: 28px; }
+    .about-text p { font-size: 1rem; line-height: 1.7; }
+    .about-grid { gap: 24px; }
+    .about-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+    .stat-box { min-width: 0; padding: 14px 5px; }
+    .stat-lbl { font-size: .68rem; overflow-wrap: anywhere; }
+    .services-grid { margin-top: 24px; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+    .service-card { padding: 22px; }
+    .tech-logo-grid { gap: 26px; }
+    .skill-group-label { margin-bottom: -12px; }
+    .tech-logo-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); gap: 10px; }
+    .tech-logo-card { width: 100%; height: auto; min-height: 88px; padding: 10px 4px; gap: 8px; }
+    .tech-logo-card span { font-size: .7rem; line-height: 1.2; overflow-wrap: anywhere; }
+    .contact-form { padding: 22px; gap: 18px; }
+    .form-group input, .form-group textarea { width: 100%; min-width: 0; }
+    .contact-item > div:last-child { min-width: 0; }
+    .timeline { margin-top: 24px; }
+    .project-body { padding: 22px; }
+    .project-img-wrap { aspect-ratio: 16 / 9; }
+    .project-card .card-actions { flex-wrap: wrap; }
+    .card-btn { min-height: 44px; }
+    .modal-overlay { padding: 12px; }
+    .modal-card { max-height: calc(100dvh - 24px); }
+    .modal-body { padding: 20px; }
+    [data-aos] { opacity: 1 !important; transform: none !important; }
+}
+@media (max-width: 360px) {
+    .hero { padding-inline: 16px; }
+    .hero-cta a { flex: 1 1 100%; justify-content: center; }
+    .section { padding-inline: 16px; }
+    .tech-logo-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .contact-form { padding: 18px; }
+}
+
+/* Confine decorative glows to their sections and let form fields shrink. */
+#contact::after { width: min(600px, 100%); height: auto; aspect-ratio: 1; animation: none; }
+.dev-glow-ring { width: min(320px, 100%); height: auto; aspect-ratio: 1; animation: none; }
+.form-row > *, .form-group input, .form-group textarea { min-width: 0; }
+@media (max-width: 1200px) { .badge-1 { left: 0; } .badge-2 { right: 0; } }

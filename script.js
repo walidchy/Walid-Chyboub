@@ -104,6 +104,24 @@ navLinks.forEach(link => {
 });
 
 
+// Keep the mobile menu state in sync when leaving the menu or resizing.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.focus();
+    }
+});
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+});
+
+
 // ====================================================
 // NAV PILL INDICATOR
 // ====================================================
