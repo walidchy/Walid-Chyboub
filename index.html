@@ -35,9 +35,11 @@
 
 
     <!-- Animated background blobs -->
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
+    <div class="bg-blob-container" aria-hidden="true">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+        <div class="bg-blob blob-3"></div>
+    </div>
 
     <!-- Noise grain overlay -->
     <div class="noise-overlay"></div>
@@ -167,7 +169,7 @@
             <a href="#home" class="nav-logo">
                 <span class="logo-bracket">&lt;</span>WC<span class="logo-bracket">/&gt;</span>
             </a>
-            <div class="nav-pill">
+            <div class="nav-pill" id="navMenu">
                 <div class="nav-pill-indicator" id="navIndicator"></div>
                 <a href="#home" class="nav-link active" data-nav="home"><i class="fas fa-home"></i><span>Home</span></a>
                 <a href="#about" class="nav-link" data-nav="about"><i class="fas fa-user"></i><span>About</span></a>
@@ -176,7 +178,7 @@
                 <a href="#contact" class="nav-link" data-nav="contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
             </div>
             <a href="#contact" class="nav-cta-btn">Let's Talk <i class="fas fa-arrow-right"></i></a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="navMenu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </nav>
@@ -597,8 +599,10 @@
                     <div class="project-body">
                         <h3 class="project-title">Books Library</h3>
                         <p class="project-desc">A React-powered library catalog that lets you search, discover and explore books using the Google Books API with dynamic filtering and a sleek reading-friendly UI.</p>
+                        <div class="project-tech-row"><span class="tech-badge">React</span><span class="tech-badge">JavaScript</span><span class="tech-badge">REST APIs</span><span class="tech-badge">CSS3</span></div>
                         <div class="card-actions">
                             <a href="https://books-libary-two.vercel.app/" target="_blank" rel="noopener" class="card-btn card-btn-live" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/walidchy/books-libary" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -621,34 +625,48 @@
                     <div class="project-body">
                         <h3 class="project-title">MovieSports</h3>
                         <p class="project-desc">A media hub combining live sports scores with a movie database — real-time match updates, movie search, and dynamic API-driven content all in one responsive app.</p>
+                        <div class="project-tech-row"><span class="tech-badge">React</span><span class="tech-badge">REST APIs</span><span class="tech-badge">CSS3</span><span class="tech-badge">HTML5</span></div>
                         <div class="card-actions">
                             <a href="https://movie-sports.vercel.app/" target="_blank" rel="noopener" class="card-btn card-btn-live" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/walidchy/MovieSports" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Replace these placeholder SVG paths with the supplied application screenshots. -->
                 <div class="project-card" onclick="openModal(this)"
-                    data-title="Global Weather Hub" data-img="images/Weather App.jpeg"
-                    data-desc="A responsive weather forecasting application that retrieves precise geolocation data and high-accuracy weather telemetry from global APIs. Features dynamic background changes based on weather conditions and support for city searches worldwide."
-                    data-tech="JavaScript,Weather API,Geolocation,CSS3"
-                    data-live="https://weather-app-seven-dun-50.vercel.app/"
-                    data-github="https://github.com/walidchy/weather-app" data-year="2024"
-                    data-features="Real-time weather data from global APIs|GPS geolocation detection|Dynamic backgrounds per weather|City search with autocomplete|5-day forecast display">
-                    <div class="card-glow"></div>
-                    <div class="card-border-glow"></div>
-                    <div class="card-particles"><span></span><span></span><span></span><span></span><span></span></div>
+                    data-title="Security Lab" data-img="images/security-lab-placeholder.svg"
+                    data-desc="An educational web security lab with vulnerable and secure implementations, a Flask API, React and Angular clients, and a MySQL database."
+                    data-tech="Python,Flask,React,Angular,MySQL"
+                    data-github="https://github.com/walidchy/security-lab"
+                    data-features="SQL injection, XSS and CSRF scenarios|Security mode for comparing defenses|React and Angular client applications">
+                    <div class="card-glow"></div><div class="card-border-glow"></div>
                     <span class="card-number">03</span>
-                    <div class="project-img-wrap">
-                        <img src="images/Weather App.jpeg" alt="Weather App" onerror="this.style.display='none'">
-                        <div class="card-year-badge"><i class="far fa-calendar-alt"></i> 2024</div>
-                        <a href="https://weather-app-seven-dun-50.vercel.app/" target="_blank" rel="noopener" class="card-status" onclick="event.stopPropagation()"><span class="status-dot"></span> Live</a>
-                    </div>
+                    <div class="project-img-wrap"><img src="images/security-lab-placeholder.svg" alt="Security Lab screenshot placeholder"></div>
                     <div class="project-body">
-                        <h3 class="project-title">Global Weather Hub</h3>
-                        <p class="project-desc">Get real-time forecasts for any city worldwide with GPS detection, dynamic weather-based backgrounds, and a beautiful 5-day outlook — all powered by live API data.</p>
-                        <div class="card-actions">
-                            <a href="https://weather-app-seven-dun-50.vercel.app/" target="_blank" rel="noopener" class="card-btn card-btn-live" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        </div>
+                        <p class="project-category">Cybersecurity &amp; DevSecOps</p>
+                        <h3 class="project-title">Security Lab</h3>
+                        <p class="project-desc">An educational web security lab for exploring vulnerabilities and comparing defenses across Flask, React and Angular applications.</p>
+                        <div class="project-tech-row"><span class="tech-badge">Python</span><span class="tech-badge">Flask</span><span class="tech-badge">React</span><span class="tech-badge">Angular</span><span class="tech-badge">MySQL</span></div>
+                        <div class="card-actions"><a href="https://github.com/walidchy/security-lab" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> GitHub</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal(this)"
+                    data-title="NotebookCW" data-img="images/notebookcw-placeholder.svg"
+                    data-desc="A PDF analysis application with a React frontend and Node.js/Express backend, using Groq to answer questions and generate document summaries, quizzes and briefings."
+                    data-tech="React,Node.js,Express,Groq"
+                    data-github="https://github.com/walidchy/NotebookCW"
+                    data-features="PDF upload and document questions|Summaries, quizzes and briefings|Text-to-image generation">
+                    <div class="card-glow"></div><div class="card-border-glow"></div>
+                    <span class="card-number">04</span>
+                    <div class="project-img-wrap"><img src="images/notebookcw-placeholder.svg" alt="NotebookCW screenshot placeholder"></div>
+                    <div class="project-body">
+                        <p class="project-category">Full-Stack Web Development</p>
+                        <h3 class="project-title">NotebookCW</h3>
+                        <p class="project-desc">A PDF analysis app for asking document questions and generating summaries, quizzes and briefings with Groq.</p>
+                        <div class="project-tech-row"><span class="tech-badge">React</span><span class="tech-badge">Node.js</span><span class="tech-badge">Express</span><span class="tech-badge">Groq</span></div>
+                        <div class="card-actions"><a href="https://github.com/walidchy/NotebookCW" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
                 </div>
 

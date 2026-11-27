@@ -91,6 +91,7 @@ const navMenu = document.querySelector('.nav-pill');
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     navMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', navMenu.classList.contains('open'));
 });
 
 
@@ -98,6 +99,7 @@ navLinks.forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         navMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
     });
 });
 
@@ -288,7 +290,9 @@ window.openModal = function(cardBtn) {
 
     if (modalImg)   { modalImg.src = card.dataset.img || ''; modalImg.alt = card.dataset.title || ''; }
     if (modalTitle) modalTitle.textContent = card.dataset.title || '';
-    if (modalYear && card.dataset.year)  modalYear.textContent = card.dataset.year;
+    if (modalYear) { modalYear.textContent = card.dataset.year || ''; modalYear.hidden = !card.dataset.year; }
+    const modalStatus = document.querySelector('.modal-status-badge');
+    if (modalStatus) modalStatus.hidden = !card.dataset.live;
     if (modalDesc)  modalDesc.textContent = card.dataset.desc || '';
 
     if (modalFeatures) {
@@ -315,7 +319,7 @@ window.openModal = function(cardBtn) {
         });
     }
 
-    if (modalLive)   modalLive.href   = card.dataset.live   || '#';
+    if (modalLive) { modalLive.hidden = !card.dataset.live; if (card.dataset.live) modalLive.href = card.dataset.live; else modalLive.removeAttribute('href'); }
     if (modalGithub) modalGithub.href = card.dataset.github || '#';
 
     if (modalOverlay) {
