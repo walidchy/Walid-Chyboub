@@ -4615,3 +4615,9 @@ body {
 
 /* Keep decorative blobs inside the viewport. */
 .bg-blob-container { position: fixed; inset: 0; overflow: clip; pointer-events: none; z-index: -2; }
+
+/* Local technology logos match the existing icon sizing and hover treatment. */
+.tech-logo-card .tech-logo { width: 2.2rem; height: 2.2rem; object-fit: contain; transition: transform .3s, filter .3s; }
+.tech-logo-card:hover .tech-logo { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--icon-color)); }
+@media (max-width: 768px) { .tech-logo-card .tech-logo { width: 1.8rem; height: 1.8rem; } }
+@media (max-width: 480px) { .tech-logo-card .tech-logo { width: 1.5rem; height: 1.5rem; } }
